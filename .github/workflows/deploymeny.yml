@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Push Docker image
-        run: docker push your-image-name
+        run: docker push gnvshanessa/matching-service
 
       - name: Set up Kubectl
         uses: azure/k8s-set-context@v1
