@@ -35,4 +35,5 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy to Kubernetes
+        working-directory: ./MachingService_BeMyPet
         run: kubectl apply -f deployment.yaml

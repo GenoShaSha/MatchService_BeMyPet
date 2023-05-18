@@ -16,6 +16,6 @@ spec:
       containers:
       - name: application
         image: gnvshanessa/matching-service:1
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
           - containerPort: 8080
