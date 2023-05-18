@@ -37,4 +37,5 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           cd ..
+          cd ..
           kubectl apply -f deployment.yaml
