@@ -35,7 +35,4 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy to Kubernetes
-        run: |
-          cd ..
-          cd ..
-          kubectl apply -f deployment.yaml
+        run: kubectl apply -f deployment.yml
