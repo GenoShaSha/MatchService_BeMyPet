@@ -35,5 +35,5 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy to Kubernetes
-        working-directory: ./app
+        working-directory: ../
         run: kubectl apply -f deployment.yaml
