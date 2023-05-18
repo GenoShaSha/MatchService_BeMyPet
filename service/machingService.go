@@ -54,3 +54,8 @@ func GetMatches(c *gin.Context) {
 
 	c.JSON(http.StatusOK, matches)
 }
+
+func Get(c *gin.Context) {
+	c.JSON(http.StatusOK, "updated")
+	return
+}

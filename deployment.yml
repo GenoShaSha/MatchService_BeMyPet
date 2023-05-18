@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bemypet
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      name: bemypt
+  template:
+    metadata:
+      labels:
+        name: bemypt
+    spec:
+      containers:
+      - name: application
+        image: gnvshanessa/matching-service:1
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8080
