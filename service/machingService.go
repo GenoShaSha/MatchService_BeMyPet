@@ -64,3 +64,8 @@ func Get1(c *gin.Context) {
 	c.JSON(http.StatusOK, "YESSSSSS")
 	return
 }
+
+func Get3(c *gin.Context) {
+	c.JSON(http.StatusOK, "okayyy")
+	return
+}
