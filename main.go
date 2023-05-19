@@ -13,6 +13,7 @@ func main() {
 	router.GET("/matches", service.GetMatches)
 	router.GET("/update", service.Get)
 	router.GET("/update1", service.Get1)
+	router.GET("/update2", service.Get2)
 	// router.GET("/products", GetProducts)
 	// router.GET("/products/:productId", GetSingleProduct)
 	// router.PUT("/products/:productId", UpdateProduct)
