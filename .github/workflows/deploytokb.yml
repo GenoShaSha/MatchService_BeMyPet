@@ -36,5 +36,5 @@ jobs:
 
       - name: Redeploy to Kubernetes
         run: |
-         kubectl delete -f bemypet
+         kubectl delete -f deployment.yml
          kubectl apply -f deployment.yml
