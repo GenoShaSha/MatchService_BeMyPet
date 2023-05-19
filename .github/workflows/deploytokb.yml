@@ -34,5 +34,7 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
-      - name: Deploy to Kubernetes
-        run: kubectl apply -f deployment.yml
+      - name: Redeploy to Kubernetes
+        run: |
+         kubectl delete -f bemypet
+         kubectl apply -f deployment.yml
