@@ -52,7 +52,14 @@ func GetMatches(c *gin.Context) {
 		matches = append(matches, match)
 	}
 
-	c.JSON(http.StatusOK, matches)
+	type MatchResponse struct {
+		Matches []model.Match `json:"matches"`
+	}
+
+	// Wrap the users array within an object
+	response := MatchResponse{Matches: matches}
+
+	c.JSON(http.StatusOK, response)
 }
 
 func Get(c *gin.Context) {
