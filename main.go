@@ -25,4 +25,6 @@ func main() {
 	// kafkaaccess.ConnectAndWriteMessage()
 	// kafkaaccess.ConnectAndConsumeMessage()
 
+	//test SonarCube
+
 }
