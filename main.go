@@ -20,7 +20,7 @@ func main() {
 	// router.DELETE("/products/:productId", DeleteProduct)
 
 	// Run the router
-	router.Run(":8080")
+	router.Run(":7777")
 
 	// kafkaaccess.ConnectAndWriteMessage()
 	// kafkaaccess.ConnectAndConsumeMessage()

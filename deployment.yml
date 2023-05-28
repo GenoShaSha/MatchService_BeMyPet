@@ -18,4 +18,4 @@ spec:
         image: gnvshanessa/matching-service:latest
         imagePullPolicy: Always
         ports:
-          - containerPort: 8080
+          - containerPort: 7777
