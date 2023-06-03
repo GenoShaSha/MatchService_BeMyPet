@@ -19,5 +19,7 @@ RUN go build -o main .
 ENV port=8080
 #expose port so we can access the app
 EXPOSE 8080
+# Add Datadog label for log collection
+LABEL "com.datadoghq.ad.logs"='[{"source": "goapp", "service": "go-web-service"}]'
 #command to start the app , "PORT=0.0.0.0:8080"
 CMD ["go", "run", "main.go"]
