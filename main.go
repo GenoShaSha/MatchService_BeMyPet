@@ -10,10 +10,9 @@ func main() {
 	router := gin.Default()
 
 	router.POST("/makematch", service.MakeMatch)
+	router.POST("/getadoptermatches", service.GetAdopterMatches)
 	router.GET("/matches", service.GetMatches)
-	router.GET("/update", service.Get)
-	router.GET("/update1", service.Get1)
-	router.GET("/update3", service.Get1)
+
 	// router.GET("/products", GetProducts)
 	// router.GET("/products/:productId", GetSingleProduct)
 	// router.PUT("/products/:productId", UpdateProduct)
