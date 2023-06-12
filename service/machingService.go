@@ -73,15 +73,21 @@ func GetMatches(c *gin.Context) {
 func GetAdopterMatches(c *gin.Context) {
 	db := dbaccess.ConnectToDb()
 
-	type UserIdMatch struct {
-		adopter_id string `json:"adopter_id"`
+	type RequestBody struct {
+		AdopterID int64 `json:"adopter_id"`
 	}
 
-	var userIdCarrier UserIdMatch
-	c.BindJSON(&userIdCarrier)
+	var requestBody RequestBody
+	if err := c.BindJSON(&requestBody); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	adopterID := requestBody.AdopterID
+	fmt.Println(adopterID)
 
 	query := "SELECT * FROM matches WHERE adopter_id = ?"
-	res, err := db.Query(query, userIdCarrier.adopter_id)
+	res, err := db.Query(query, adopterID)
 	defer res.Close()
 	if err != nil {
 		log.Fatal("(GetProducts) db.Query", err)
