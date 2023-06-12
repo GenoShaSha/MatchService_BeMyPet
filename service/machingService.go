@@ -162,11 +162,13 @@ func UpdateMatchStatus(c *gin.Context) {
 		return
 	}
 
+	fmt.Println(requestBody)
+
 	query := "UPDATE matches SET Status = ? WHERE ID = ?"
 	res, err := db.Query(query, requestBody.Status, requestBody.MatchID)
 	defer res.Close()
 	if err != nil {
-		log.Fatal("(GetProducts) db.Query", err)
+		fmt.Println(err)
 	}
 
 	c.JSON(http.StatusOK, "OK")
