@@ -4,6 +4,7 @@ import (
 	"machingMicroService/dbaccess"
 	"machingMicroService/model"
 
+	"fmt"
 	"log"
 	"net/http"
 
@@ -23,8 +24,10 @@ func MakeMatch(c *gin.Context) {
 		log.Fatal("(RegisterUser) c.BindJSON", err)
 	}
 
-	query := `INSERT INTO matches (shelter_id, animal_id, adopter_id, picture, first_name, last_name, date_of_birth, gender, type, breed, shelter, address, postal_code, bio, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-	res, err := db.Exec(query, matchCarrier.ShelterID, matchCarrier.AnimalID, matchCarrier.AdopterID, matchCarrier.Picture, matchCarrier.FirstName, matchCarrier.LastName, matchCarrier.DateOfBirth, matchCarrier.Gender, matchCarrier.Type, matchCarrier.Breed, matchCarrier.Shelter, matchCarrier.Address, matchCarrier.PostalCode, matchCarrier.Bio, matchCarrier.Status)
+	fmt.Println(matchCarrier)
+
+	query := `INSERT INTO matches (shelter_id, animal_id, adopter_id, picture, first_name, last_name, date_of_birth, gender, type, breed, shelter, address, postal_code, bio, status,adopter_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`
+	res, err := db.Exec(query, matchCarrier.ShelterID, matchCarrier.AnimalID, matchCarrier.AdopterID, matchCarrier.Picture, matchCarrier.FirstName, matchCarrier.LastName, matchCarrier.DateOfBirth, matchCarrier.Gender, matchCarrier.Type, matchCarrier.Breed, matchCarrier.Shelter, matchCarrier.Address, matchCarrier.PostalCode, matchCarrier.Bio, matchCarrier.Status, matchCarrier.AdopterEmail)
 	if err != nil {
 		log.Fatal("(RegisterUser) db.Exec", err)
 	}
