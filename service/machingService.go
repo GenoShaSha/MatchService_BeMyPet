@@ -152,24 +152,22 @@ func UpdateMatchStatus(c *gin.Context) {
 	db := dbaccess.ConnectToDb()
 
 	type RequestBody struct {
-		MatchID int64  `json:"matchid"`
-		Status  string `json: "status"`
+		MatchID int64  `json:"id"`
+		Status  string `json:"status"`
 	}
 
 	var requestBody RequestBody
 	if err := c.BindJSON(&requestBody); err != nil {
-		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	fmt.Println(requestBody)
-
 	query := "UPDATE matches SET Status = ? WHERE ID = ?"
-	res, err := db.Query(query, requestBody.Status, requestBody.MatchID)
-	defer res.Close()
+	_, err := db.Exec(query, requestBody.Status, requestBody.MatchID)
 	if err != nil {
-		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
-	c.JSON(http.StatusOK, "OK")
+	c.JSON(http.StatusOK, gin.H{"message": "OK"})
 }
