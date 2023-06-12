@@ -147,3 +147,27 @@ func GetShelterMatches(c *gin.Context) {
 
 	c.JSON(http.StatusOK, response)
 }
+
+func UpdateMatchStatus(c *gin.Context) {
+	db := dbaccess.ConnectToDb()
+
+	type RequestBody struct {
+		MatchID int64  `json:"matchid"`
+		Status  string `json: "status"`
+	}
+
+	var requestBody RequestBody
+	if err := c.BindJSON(&requestBody); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	query := "UPDATE matches SET Status = ? WHERE ID = ?"
+	res, err := db.Query(query, requestBody.Status, requestBody.MatchID)
+	defer res.Close()
+	if err != nil {
+		log.Fatal("(GetProducts) db.Query", err)
+	}
+
+	c.JSON(http.StatusOK, "OK")
+}
