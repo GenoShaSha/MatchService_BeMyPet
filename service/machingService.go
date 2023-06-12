@@ -108,3 +108,42 @@ func GetAdopterMatches(c *gin.Context) {
 
 	c.JSON(http.StatusOK, response)
 }
+
+func GetShelterMatches(c *gin.Context) {
+	db := dbaccess.ConnectToDb()
+
+	type RequestBody struct {
+		ShelterID int64 `json:"shelter_id"`
+	}
+
+	var requestBody RequestBody
+	if err := c.BindJSON(&requestBody); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	shelterID := requestBody.ShelterID
+	fmt.Println(shelterID)
+
+	query := "SELECT * FROM matches WHERE shelter_id = ?"
+	res, err := db.Query(query, shelterID)
+	defer res.Close()
+	if err != nil {
+		log.Fatal("(GetProducts) db.Query", err)
+	}
+
+	matches := []model.Match{}
+	for res.Next() {
+		var match model.Match
+		err := res.Scan(&match.ID, &match.ShelterID, &match.AnimalID, &match.ShelterID, &match.Picture, &match.FirstName, &match.LastName, &match.DateOfBirth, &match.Gender, &match.Type, &match.Breed, &match.Shelter, &match.Address, &match.PostalCode, &match.Bio, &match.Status, &match.AdopterEmail)
+		if err != nil {
+			log.Fatal("(GetProducts) res.Scan", err)
+		}
+		matches = append(matches, match)
+	}
+
+	// Wrap the users array within an object
+	response := MatchResponse{Matches: matches}
+
+	c.JSON(http.StatusOK, response)
+}

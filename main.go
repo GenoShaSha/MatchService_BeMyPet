@@ -11,6 +11,7 @@ func main() {
 
 	router.POST("/makematch", service.MakeMatch)
 	router.POST("/getadoptermatches", service.GetAdopterMatches)
+	router.POST("/getsheltermatches", service.GetShelterMatches)
 	router.GET("/matches", service.GetMatches)
 
 	// router.GET("/products", GetProducts)
