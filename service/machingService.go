@@ -135,7 +135,7 @@ func GetShelterMatches(c *gin.Context) {
 	matches := []model.Match{}
 	for res.Next() {
 		var match model.Match
-		err := res.Scan(&match.ID, &match.ShelterID, &match.AnimalID, &match.ShelterID, &match.Picture, &match.FirstName, &match.LastName, &match.DateOfBirth, &match.Gender, &match.Type, &match.Breed, &match.Shelter, &match.Address, &match.PostalCode, &match.Bio, &match.Status, &match.AdopterEmail)
+		err := res.Scan(&match.ID, &match.ShelterID, &match.AnimalID, &match.AdopterID, &match.Picture, &match.FirstName, &match.LastName, &match.DateOfBirth, &match.Gender, &match.Type, &match.Breed, &match.Shelter, &match.Address, &match.PostalCode, &match.Bio, &match.Status, &match.AdopterEmail)
 		if err != nil {
 			log.Fatal("(GetProducts) res.Scan", err)
 		}
