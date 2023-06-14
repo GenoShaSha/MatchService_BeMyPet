@@ -150,6 +150,7 @@ func GetShelterMatches(c *gin.Context) {
 
 func UpdateMatchStatus(c *gin.Context) {
 	db := dbaccess.ConnectToDb()
+	defer db.Close()
 
 	type RequestBody struct {
 		MatchID int64  `json:"id"`
