@@ -47,7 +47,8 @@ func GetMatches(c *gin.Context) {
 	res, err := db.Query(query)
 	defer res.Close()
 	if err != nil {
-		log.Fatal("(GetProducts) db.Query", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	matches := []model.Match{}
@@ -55,7 +56,8 @@ func GetMatches(c *gin.Context) {
 		var match model.Match
 		err := res.Scan(&match.ID, &match.ShelterID, &match.AnimalID, &match.AdopterID, &match.Picture, &match.FirstName, &match.LastName, &match.DateOfBirth, &match.Gender, &match.Type, &match.Breed, &match.Shelter, &match.Address, &match.PostalCode, &match.Bio, &match.Status, &match.AdopterEmail)
 		if err != nil {
-			log.Fatal("(GetProducts) res.Scan", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
 		}
 		matches = append(matches, match)
 	}
