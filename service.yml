@@ -10,4 +10,4 @@ spec:
     port: 80
     targetPort: 8080
   selector:
-    name: bemypt
+    name: go-web-service

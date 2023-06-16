@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bemypet
+  name: go-web-service
 spec:
   replicas: 5
   selector:
     matchLabels:
-      name: bemypet
+      name: go-web-service
   template:
     metadata:
       labels:
-        name: bemypet
+        name: go-web-service
     spec:
       containers:
       - name: application
