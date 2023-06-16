@@ -8,17 +8,23 @@ import (
 
 func main() {
 	router := gin.Default()
+	tableMatches := "matches" 
 
-	router.POST("/makematch", service.MakeMatch)
-	router.POST("/getadoptermatches", service.GetAdopterMatches)
-	router.POST("/getsheltermatches", service.GetShelterMatches)
-	router.PUT("/updatematch", service.UpdateMatchStatus)
-	router.GET("/matches", service.GetMatches)
+	router.POST("/makematch", func(c *gin.Context){
+		service.MakeMatch(c, tableMatches)
+	})
+	// router.POST("/getadoptermatches", func(c *gin.Context){
+	// 	service.GetAdopterMatches(c, tableMatches)
+	// })
+	// router.POST("/getsheltermatches", func(c *gin.Context){
+	// 	service.GetShelterMatches(c, tableMatches)})
 
-	// router.GET("/products", GetProducts)
-	// router.GET("/products/:productId", GetSingleProduct)
-	// router.PUT("/products/:productId", UpdateProduct)
-	// router.DELETE("/products/:productId", DeleteProduct)
+	// router.PUT("/updatematch", func(c *gin.Context){
+	// 	service.UpdateMatchStatus(c, tableMatches)
+	// })
+	// router.GET("/matches", func(c *gin.Context){
+	// 	service.GetMatches(c, tableMatches)
+	// })
 
 	// Run the router
 	router.Run(":8080")

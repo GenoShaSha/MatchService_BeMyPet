@@ -15,7 +15,7 @@ type MatchResponse struct {
 	Matches []model.Match `json:"matches"`
 }
 
-func MakeMatch(c *gin.Context) {
+func MakeMatch(c *gin.Context, table string) {
 	db := dbaccess.ConnectToDb()
 
 	var matchCarrier model.Match
@@ -26,7 +26,7 @@ func MakeMatch(c *gin.Context) {
 
 	fmt.Println(matchCarrier)
 
-	query := `INSERT INTO matches (shelter_id, animal_id, adopter_id, picture, first_name, last_name, date_of_birth, gender, type, breed, shelter, address, postal_code, bio, status,adopter_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`
+	query := fmt.Sprintf("INSERT INTO %s (shelter_id, animal_id, adopter_id, picture, first_name, last_name, date_of_birth, gender, type, breed, shelter, address, postal_code, bio, status,adopter_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)", table)
 	res, err := db.Exec(query, matchCarrier.ShelterID, matchCarrier.AnimalID, matchCarrier.AdopterID, matchCarrier.Picture, matchCarrier.FirstName, matchCarrier.LastName, matchCarrier.DateOfBirth, matchCarrier.Gender, matchCarrier.Type, matchCarrier.Breed, matchCarrier.Shelter, matchCarrier.Address, matchCarrier.PostalCode, matchCarrier.Bio, matchCarrier.Status, matchCarrier.AdopterEmail)
 	if err != nil {
 		log.Fatal("(RegisterUser) db.Exec", err)
@@ -40,10 +40,9 @@ func MakeMatch(c *gin.Context) {
 	c.JSON(http.StatusOK, matchCarrier)
 }
 
-func GetMatches(c *gin.Context) {
+func GetMatches(c *gin.Context, table string) {
 	db := dbaccess.ConnectToDb()
-
-	query := "SELECT * FROM matches"
+	query := fmt.Sprintf("SELECT * FROM %s", table)
 	res, err := db.Query(query)
 	defer res.Close()
 	if err != nil {
@@ -72,7 +71,7 @@ func GetMatches(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func GetAdopterMatches(c *gin.Context) {
+func GetAdopterMatches(c *gin.Context, table string) {
 	db := dbaccess.ConnectToDb()
 
 	type RequestBody struct {
@@ -88,7 +87,7 @@ func GetAdopterMatches(c *gin.Context) {
 	adopterID := requestBody.AdopterID
 	fmt.Println(adopterID)
 
-	query := "SELECT * FROM matches WHERE adopter_id = ?"
+	query := fmt.Sprintf("SELECT * FROM %s WHERE adopter_id = ?", table)
 	res, err := db.Query(query, adopterID)
 	defer res.Close()
 	if err != nil {
@@ -111,7 +110,7 @@ func GetAdopterMatches(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func GetShelterMatches(c *gin.Context) {
+func GetShelterMatches(c *gin.Context, table string) {
 	db := dbaccess.ConnectToDb()
 
 	type RequestBody struct {
@@ -127,7 +126,8 @@ func GetShelterMatches(c *gin.Context) {
 	shelterID := requestBody.ShelterID
 	fmt.Println(shelterID)
 
-	query := "SELECT * FROM matches WHERE shelter_id = ?"
+	
+	query := fmt.Sprintf("SELECT * FROM %s WHERE shelter_id = ?", table)
 	res, err := db.Query(query, shelterID)
 	defer res.Close()
 	if err != nil {
@@ -150,7 +150,7 @@ func GetShelterMatches(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func UpdateMatchStatus(c *gin.Context) {
+func UpdateMatchStatus(c *gin.Context,table string) {
 	db := dbaccess.ConnectToDb()
 	defer db.Close()
 
@@ -165,7 +165,7 @@ func UpdateMatchStatus(c *gin.Context) {
 		return
 	}
 
-	query := "UPDATE matches SET Status = ? WHERE ID = ?"
+	query := fmt.Sprintf("UPDATE %s SET Status = ? WHERE ID = ?", table)
 	_, err := db.Exec(query, requestBody.Status, requestBody.MatchID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
