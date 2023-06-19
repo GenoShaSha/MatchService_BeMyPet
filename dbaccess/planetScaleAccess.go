@@ -22,7 +22,7 @@ import (
 // }
 
 func ConnectToDb() *sql.DB {
-	db, err := sql.Open("mysql", "4d2adpc6lotoch53wrs2:pscale_pw_dlxvbdlZQuGvcyR1K8hCu0PVSLUbfLWW1hdBf11Zzrx@tcp(aws.connect.psdb.cloud)/matching_service_bemypet?tls=true")
+	db, err := sql.Open("mysql", "8w9ynfci5v747ugcmo9d:pscale_pw_rB4cfHezGt4a8OKpNeBOrT7Ugouvu8FhHRRIVDZRWG1@tcp(aws.connect.psdb.cloud)/matching_service_bemypet?tls=true")
 	if err != nil {
 		log.Fatalf("failed to connect: %v", err)
 	}
